@@ -14,7 +14,7 @@ function AddUser() {
       <Layout>
         <div className="flex justify-center items-center h-full px-4">
           <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-8">
-            <h2 className="text-2xl font-bold mb-6 text-center">Add Staff</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">Add User</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Name Input */}

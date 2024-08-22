@@ -1,10 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import Login from './components/admin/pages/Login';
 import Users from './components/admin/pages/Users';
-import SignUp from './components/admin/pages/SignUp';
 import AddUser from './components/admin/pages/AddUser';
 import MainPage from './components/mainPage';
+import Chat from './components/admin/pages/Chat';
+import Login from './components/staffs/pages/Login';
+import SignUp from './components/staffs/pages/SignUp';
+import AdminLogin from './components/admin/pages/AdminLogin';
+import AdminSignUp from './components/admin/pages/AdminSignUp';
 
 function App() {
   return (
@@ -19,15 +22,27 @@ function App() {
             }
           />
           <Route
-            path="/login"
+            path="/staff-login"
             element={
               <Login />
             }
           />
           <Route
-            path="/signUp"
+            path="/staff-signUp"
             element={(
               <SignUp />
+            )}
+          />
+          <Route
+            path="/login"
+            element={
+              <AdminLogin />
+            }
+          />
+          <Route
+            path="/signUp"
+            element={(
+              <AdminSignUp />
             )}
           />
           <Route
@@ -40,6 +55,12 @@ function App() {
             path="/users"
             element={
               <Users />
+            }
+          />
+          <Route
+            path="/chat"
+            element={
+              <Chat />
             }
           />
         </Routes>

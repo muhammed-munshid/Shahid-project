@@ -1,44 +1,72 @@
-import axios from 'axios';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
-import { mainUrl } from '../../../API/Api';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Toaster, toast } from 'react-hot-toast';
 import Navbar from '../Navbar';
+import { mainUrl } from '../../../API/Api';
 
-function Login() {
+function AdminSignUp() {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [mobile, setMobile] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const adminData = { email, password };
+    const managerData = {
+        name, email, mobile, password,
+    };
 
-    const verifyLogin = async (e) => {
+    const verifySignUp = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${mainUrl}`, adminData);
-            console.log(response);
-            
-            if (response.data.success) {
-                toast.success(response.data.message);
-                navigate('/users');
-            } else {
-                toast.error(response.data.message);
-            }
+            axios.post(`${mainUrl}signUp`, managerData)
+                .then(async (response) => {
+                    if (response.data.success) {
+                        toast.success(response.data.message);
+                        navigate('/login');
+                    } else if (response.data.exist) {
+                        toast.error(response.data.message);
+                        navigate('/login');
+                    } else {
+                        toast.error('something error');
+                        navigate('/signUp');
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         } catch (error) {
             console.log(error);
-            toast.error('Something went wrong');
+            toast.error('something error');
         }
     };
 
     return (
-        <div>
+        <>
             <Navbar />
             <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+                <Toaster toastOptions={{ duration: 4000 }} />
                 <div className="max-w-md w-full space-y-8">
                     <h2 className="mt-6 text-center text-3xl font-semibold text-white">
-                        Admin Login
+                        Admin SignUp
                     </h2>
-                    <form onSubmit={verifyLogin} className="mt-8 space-y-6">
+                    <form onSubmit={verifySignUp} className="mt-8 space-y-6">
                         <div className="rounded-md shadow-sm space-y-4">
+                        <div className="flex justify-center">
+                                <div className="w-3/4 sm:w-1/2 md:w-2/3 lg:w-3/4">
+                                    <label htmlFor="name" className="sr-only">Name</label>
+                                    <input
+                                        type="name"
+                                        name="name"
+                                        id="name"
+                                        placeholder="Name"
+                                        required
+                                        className="appearance-none rounded-md block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white bg-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+
                             <div className="flex justify-center">
                                 <div className="w-3/4 sm:w-1/2 md:w-2/3 lg:w-3/4">
                                     <label htmlFor="email" className="sr-only">Email</label>
@@ -51,6 +79,22 @@ function Login() {
                                         className="appearance-none rounded-md block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white bg-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex justify-center">
+                                <div className="w-3/4 sm:w-1/2 md:w-2/3 lg:w-3/4">
+                                    <label htmlFor="email" className="sr-only">Mobile</label>
+                                    <input
+                                        type="number"
+                                        name="mobile"
+                                        id="mobile"
+                                        placeholder="Mobile"
+                                        required
+                                        className="appearance-none rounded-md block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white bg-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        value={mobile}
+                                        onChange={(e) => setMobile(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -77,25 +121,15 @@ function Login() {
                                     type="submit"
                                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 >
-                                    Sign in
+                                    Sign Up
                                 </button>
-                            </div>
-                        </div>
-                        <div className=" text-gray-400">
-                            <div className="flex justify-center">
-                                <div className="w-3/4 sm:w-1/2 md:w-2/3 lg:w-2/4">
-                                    <p className="inset-y-0 left-0 ">No register in account?</p>
-                                </div>
-                                <div className="">
-                                    <Link to="/signUp" className="ps-3 text-lg text-right hover:underline hover:text-gray-100">Sign Up</Link>
-                                </div>
                             </div>
                         </div>
                     </form>
                 </div >
             </div >
-        </div >
+        </>
     );
 }
 
-export default Login;
+export default AdminSignUp;

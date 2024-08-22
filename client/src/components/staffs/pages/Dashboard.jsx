@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Layout from '../Layout';
 
-function Users() {
+function Dashboard() {
   return (
     <div>
       <Navbar />
@@ -70,4 +70,4 @@ function Users() {
   );
 }
 
-export default Users;
+export default Dashboard;

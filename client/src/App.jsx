@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Users from './components/admin/pages/Users';
 import AddUser from './components/admin/pages/AddUser';
-import MainPage from './components/mainPage';
+import MainPage from './components/MainPage';
 import Chat from './components/admin/pages/Chat';
 import Login from './components/staffs/pages/Login';
 import SignUp from './components/staffs/pages/SignUp';

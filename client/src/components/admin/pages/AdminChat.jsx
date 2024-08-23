@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const socket = io(mainUrl);
 
-function Chat() {
+function AdminChat() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
 
@@ -82,4 +82,4 @@ function Chat() {
     );
 }
 
-export default Chat;
+export default AdminChat;

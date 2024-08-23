@@ -42,7 +42,7 @@ function Layout({ children }) {
                 <a href="/diary" className="block py-2 px-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Day Diary</a>
               </li>
               <li>
-                <a href="/chat" className="block py-2 px-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Chat</a>
+                <a href="/staff-chat" className="block py-2 px-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Chat</a>
               </li>
               {/* Add more links here */}
             </ul>

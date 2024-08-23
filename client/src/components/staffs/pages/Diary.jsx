@@ -22,41 +22,33 @@ function Diary() {
                   <thead className="bg-slate-300">
                     <tr>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Name
+                      പുറത്തേക്കു ജീവികളെ  തുറന്നു വിട്ട സമയം
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Email
+                      ജീവികളെ കൂട്ടിൽ കയറ്റിയ സമയം
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Mobile
+                      ജീവികളെ തുറന്നു വിട്ടപ്പോലുള്ള എണ്ണം(കോഴി)
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Access
+                      ജീവികളെ തുറന്നു വിട്ടപ്പോലുള്ള എണ്ണം(താറാവ്)
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-slate-400 divide-y divide-gray-200">
                     {/* Example static row */}
                     <tr className="hover:bg-slate-200 transition duration-300">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="flex-shrink-0 h-10 w-10">
-                            <img className="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="" />
-                          </div>
-                          <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">John Doe</div>
-                            <div className="text-sm text-gray-500">johndoe@example.com</div>
-                          </div>
-                        </div>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">10:30 AM</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">johndoe@example.com</div>
+                        <div className="text-sm text-gray-900">11:00 AM</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">123-456-7890</div>
+                        <div className="text-sm text-gray-900">20</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="text-blue-500">Block</button>
+                        <div className="text-sm text-gray-900">25</div>
                       </td>
                     </tr>
                   </tbody>

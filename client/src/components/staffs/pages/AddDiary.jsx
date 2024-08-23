@@ -45,7 +45,7 @@ function AddDiary() {
 
               {/* Mobile Input */}
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700">ജീവികളെ തുറന്നു വിട്ടപ്പോലുള്ള എണ്ണം</label>
+                <label className="text-sm font-medium text-gray-700">ജീവികളെ തുറന്നു വിട്ടപ്പോലുള്ള എണ്ണം(കോഴി)</label>
                 <input
                   type="number"
                   value={mobile}
@@ -58,7 +58,7 @@ function AddDiary() {
 
               {/* Address Input */}
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700">ജീവികളെ കൂട്ടിൽ കയറ്റിയപ്പോലുള്ള  എണ്ണം</label>
+                <label className="text-sm font-medium text-gray-700">ജീവികളെ തുറന്നു വിട്ടപ്പോലുള്ള എണ്ണം(താറാവ്)</label>
                 <input
                   type="text"
                   value={address}
@@ -70,7 +70,7 @@ function AddDiary() {
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700">ജീവികളെ തുറന്നു വിട്ടപ്പോലുള്ള എണ്ണം</label>
+                <label className="text-sm font-medium text-gray-700"> ജീവികളെ കൂട്ടിൽ കയറ്റിയപ്പോലുള്ള  എണ്ണം(കോഴി )</label>
                 <input
                   type="number"
                   value={mobile}
@@ -82,7 +82,7 @@ function AddDiary() {
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700">ജീവികളെ കൂട്ടിൽ കയറ്റിയപ്പോലുള്ള  എണ്ണം</label>
+                <label className="text-sm font-medium text-gray-700">ജീവികളെ കൂട്ടിൽ കയറ്റിയപ്പോലുള്ള  എണ്ണം(താറാവ്)</label>
                 <input
                   type="text"
                   value={address}

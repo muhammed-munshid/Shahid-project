@@ -3,13 +3,14 @@ import { Toaster } from 'react-hot-toast';
 import Users from './components/admin/pages/Users';
 import AddUser from './components/admin/pages/AddUser';
 import MainPage from './components/MainPage';
-import Chat from './components/admin/pages/Chat';
 import Login from './components/staffs/pages/Login';
 import SignUp from './components/staffs/pages/SignUp';
 import AdminLogin from './components/admin/pages/AdminLogin';
 import AdminSignUp from './components/admin/pages/AdminSignUp';
 import Diary from './components/staffs/pages/Diary';
 import AddDiary from './components/staffs/pages/AddDiary';
+import AdminChat from './components/admin/pages/AdminChat';
+import Chat from './components/staffs/pages/Chat';
 
 function App() {
   return (
@@ -48,6 +49,12 @@ function App() {
             }
           />
           <Route
+            path="/staff-chat"
+            element={
+              <Chat />
+            }
+          />
+          <Route
             path="/login"
             element={
               <AdminLogin />
@@ -74,7 +81,7 @@ function App() {
           <Route
             path="/chat"
             element={
-              <Chat />
+              <AdminChat />
             }
           />
         </Routes>

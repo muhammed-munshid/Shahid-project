@@ -2,16 +2,16 @@ import { Link } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Layout from '../Layout';
 
-function Dashboard() {
+function Diary() {
   return (
     <div>
       <Navbar />
       <Layout>
         <div className="mt-[4rem] pe-4"> {/* Add some margin to position content below the navbar */}
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-xl font-bold">Staff List</h1>
-            <Link to='/add-user' className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
-              Add Staff
+            <h1 className="text-xl font-bold">Day Diary</h1>
+            <Link to='/add-diary' className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+              Add Day Diary
             </Link>
           </div>
 
@@ -70,4 +70,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Diary;

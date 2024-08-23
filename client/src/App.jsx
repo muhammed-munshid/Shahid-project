@@ -8,6 +8,8 @@ import Login from './components/staffs/pages/Login';
 import SignUp from './components/staffs/pages/SignUp';
 import AdminLogin from './components/admin/pages/AdminLogin';
 import AdminSignUp from './components/admin/pages/AdminSignUp';
+import Diary from './components/staffs/pages/Diary';
+import AddDiary from './components/staffs/pages/AddDiary';
 
 function App() {
   return (
@@ -32,6 +34,18 @@ function App() {
             element={(
               <SignUp />
             )}
+          />
+          <Route
+            path="/add-diary"
+            element={
+              <AddDiary />
+            }
+          />
+          <Route
+            path="/diary"
+            element={
+              <Diary />
+            }
           />
           <Route
             path="/login"

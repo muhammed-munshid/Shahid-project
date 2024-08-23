@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Navbar from '../Navbar';
 import Layout from '../Layout';
 
-function AddUser() {
+function AddDiary() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
@@ -14,17 +14,17 @@ function AddUser() {
       <Layout>
         <div className="flex justify-center items-center h-full px-4">
           <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-8">
-            <h2 className="text-2xl font-bold mb-6 text-center">Add User</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">Add Diary</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Name Input */}
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700">Name</label>
+                <label className="text-sm font-medium text-gray-700">പുറത്തേക്കു ജീവികളെ  തുറന്നു വിട്ട സമയം</label>
                 <input
                   type="text"
                   value={name}
                   required
-                  placeholder="Enter name"
+                  placeholder="Enter notes"
                   onChange={(e) => setName(e.target.value)}
                   className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
                 />
@@ -32,12 +32,12 @@ function AddUser() {
 
               {/* Email Input */}
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700">Email</label>
+                <label className="text-sm font-medium text-gray-700">ജീവികളെ കൂട്ടിൽ കയറ്റിയ സമയം</label>
                 <input
-                  type="email"
+                  type="text"
                   value={email}
                   required
-                  placeholder="Enter email"
+                  placeholder="Enter notes"
                   onChange={(e) => setEmail(e.target.value)}
                   className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
                 />
@@ -45,12 +45,12 @@ function AddUser() {
 
               {/* Mobile Input */}
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700">Mobile</label>
+                <label className="text-sm font-medium text-gray-700">ജീവികളെ തുറന്നു വിട്ടപ്പോലുള്ള എണ്ണം</label>
                 <input
                   type="number"
                   value={mobile}
                   required
-                  placeholder="Enter mobile number"
+                  placeholder="Enter notes"
                   onChange={(e) => setMobile(e.target.value)}
                   className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
                 />
@@ -58,17 +58,42 @@ function AddUser() {
 
               {/* Address Input */}
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700">Address</label>
+                <label className="text-sm font-medium text-gray-700">ജീവികളെ കൂട്ടിൽ കയറ്റിയപ്പോലുള്ള  എണ്ണം</label>
                 <input
                   type="text"
                   value={address}
                   required
-                  placeholder="Enter address"
+                  placeholder="Enter notes"
+                  onChange={(e) => setAddress(e.target.value)}
+                  className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700">ജീവികളെ തുറന്നു വിട്ടപ്പോലുള്ള എണ്ണം</label>
+                <input
+                  type="number"
+                  value={mobile}
+                  required
+                  placeholder="Enter notes"
+                  onChange={(e) => setMobile(e.target.value)}
+                  className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700">ജീവികളെ കൂട്ടിൽ കയറ്റിയപ്പോലുള്ള  എണ്ണം</label>
+                <input
+                  type="text"
+                  value={address}
+                  required
+                  placeholder="Enter notes"
                   onChange={(e) => setAddress(e.target.value)}
                   className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
             </div>
+
 
             {/* Submit Button */}
             <div className="mt-6 text-center">
@@ -83,4 +108,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default AddDiary;

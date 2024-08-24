@@ -3,10 +3,18 @@ import Navbar from '../Navbar';
 import Layout from '../Layout';
 
 function AddDiary() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [address, setAddress] = useState('');
+  const [note1, setNote1] = useState('00:00 AM');
+  const [note2, setNote2] = useState('00:00 AM');
+  const [note3, setNote3] = useState('');
+  const [note4, setNote4] = useState('');
+  const [note5, setNote5] = useState('');
+  const [note6, setNote6] = useState('');
+  const [note7, setNote7] = useState('');
+  const [note8, setNote8] = useState('');
+  const [note9, setNote9] = useState('');
+  const [note10, setNote10] = useState('');
+  const [note11, setNote11] = useState('');
+  const [note12, setNote12] = useState('');
 
   return (
     <div>
@@ -22,61 +30,53 @@ function AddDiary() {
                 <label className="text-sm font-medium text-gray-700">പുറത്തേക്കു ജീവികളെ  തുറന്നു വിട്ട സമയം</label>
                 <input
                   type="text"
-                  value={name}
-                  required
+                  value={note1}
                   placeholder="Enter notes"
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => setNote1(e.target.value)}
                   className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
-              {/* Email Input */}
               <div className="flex flex-col">
                 <label className="text-sm font-medium text-gray-700">ജീവികളെ കൂട്ടിൽ കയറ്റിയ സമയം</label>
                 <input
                   type="text"
-                  value={email}
-                  required
+                  value={note2}
                   placeholder="Enter notes"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setNote2(e.target.value)}
                   className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
-              {/* Mobile Input */}
               <div className="flex flex-col">
                 <label className="text-sm font-medium text-gray-700">ജീവികളെ തുറന്നു വിട്ടപ്പോലുള്ള എണ്ണം(കോഴി)</label>
                 <input
                   type="number"
-                  value={mobile}
-                  required
+                  value={note3}
                   placeholder="Enter notes"
-                  onChange={(e) => setMobile(e.target.value)}
+                  onChange={(e) => setNote3(e.target.value)}
                   className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
-              {/* Address Input */}
               <div className="flex flex-col">
                 <label className="text-sm font-medium text-gray-700">ജീവികളെ തുറന്നു വിട്ടപ്പോലുള്ള എണ്ണം(താറാവ്)</label>
                 <input
-                  type="text"
-                  value={address}
-                  required
+                  type="number"
+                  value={note4}
                   placeholder="Enter notes"
-                  onChange={(e) => setAddress(e.target.value)}
+                  onChange={(e) => setNote4(e.target.value)}
                   className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700"> ജീവികളെ കൂട്ടിൽ കയറ്റിയപ്പോലുള്ള  എണ്ണം(കോഴി )</label>
+                <label className="text-sm font-medium text-gray-700"> ജീവികളെ കൂട്ടിൽ കയറ്റിയപ്പോലുള്ള  എണ്ണം(കോഴി)</label>
                 <input
                   type="number"
-                  value={mobile}
-                  required
+                  value={note5}
                   placeholder="Enter notes"
-                  onChange={(e) => setMobile(e.target.value)}
+                  onChange={(e) => setNote5(e.target.value)}
                   className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
@@ -84,14 +84,80 @@ function AddDiary() {
               <div className="flex flex-col">
                 <label className="text-sm font-medium text-gray-700">ജീവികളെ കൂട്ടിൽ കയറ്റിയപ്പോലുള്ള  എണ്ണം(താറാവ്)</label>
                 <input
-                  type="text"
-                  value={address}
-                  required
+                  type="number"
+                  value={note6}
                   placeholder="Enter notes"
-                  onChange={(e) => setAddress(e.target.value)}
+                  onChange={(e) => setNote6(e.target.value)}
                   className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700">ഇന്ന് കിട്ടിയ മുട്ടയുടെ എണ്ണം(കോഴി)</label>
+                <input
+                  type="number"
+                  value={note7}
+                  placeholder="Enter notes"
+                  onChange={(e) => setNote7(e.target.value)}
+                  className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700">ഇന്ന് കിട്ടിയ മുട്ടയുടെ എണ്ണം(താറാവ്)</label>
+                <input
+                  type="number"
+                  value={note8}
+                  placeholder="Enter notes"
+                  onChange={(e) => setNote8(e.target.value)}
+                  className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700">ആകെയുള്ള (ആഴ്ചയിൽ) മുട്ടയുടെ എണ്ണം(കോഴി)</label>
+                <input
+                  type="number"
+                  value={note9}
+                  placeholder="Enter notes"
+                  onChange={(e) => setNote9(e.target.value)}
+                  className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700">ആകെയുള്ള (ആഴ്ചയിൽ) മുട്ടയുടെ എണ്ണം(താറാവ്)</label>
+                <input
+                  type="number"
+                  value={note10}
+                  placeholder="Enter notes"
+                  onChange={(e) => setNote10(e.target.value)}
+                  className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700">പുതുതായി പൊരുന്തിയ ജീവികൾ(കോഴി)</label>
+                <input
+                  type="number"
+                  value={note11}
+                  placeholder="Enter notes"
+                  onChange={(e) => setNote11(e.target.value)}
+                  className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700">പുതുതായി പൊരുന്തിയ ജീവികൾ(താറാവ്)</label>
+                <input
+                  type="number"
+                  value={note12}
+                  placeholder="Enter notes"
+                  onChange={(e) => setNote12(e.target.value)}
+                  className="mt-2 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+              
             </div>
 
 

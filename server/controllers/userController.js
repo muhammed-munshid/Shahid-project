@@ -53,7 +53,7 @@ export const adminSignUp = async (req, res) => {
 
 export const chats = async (req, res) => {
     try {
-        const { message } = req.body;  // Expect a single message in the request body
+        const { message, userType } = req.body;  // Expect a single message in the request body
         console.log('req: ', req.body);
 
         const userId = req.user.id;  // Get the user ID from the decoded token
@@ -61,6 +61,7 @@ export const chats = async (req, res) => {
 
         // Create and save the new message
         const newMessage = new messageModel({
+            userType,
             user: userId,
             message: message,  // This is a string, not an array
         });

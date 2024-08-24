@@ -13,8 +13,9 @@ function Layout({ children }) {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/login')
+    navigate('/staff-login')
   }
+  
   return (
     <div className="flex">
       {/* Sidebar */}

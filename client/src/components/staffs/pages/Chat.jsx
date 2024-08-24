@@ -37,10 +37,10 @@ function Chat() {
     }, []);
 
     const sendMessage = () => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('staff-token');
         socket.emit('chatMessage', input); // Emit the new message to the server
 
-        axios.post(`${mainUrl}chat`, { message: input }, {  // Send only the new message to the backend
+        axios.post(`${mainUrl}chat`, { message: input, userType: 'staff' }, {  // Send only the new message to the backend
             headers: {
                 Authorization: `Bearer ${token}`,
             },

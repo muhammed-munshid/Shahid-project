@@ -40,7 +40,7 @@ function AdminChat() {
         const token = localStorage.getItem('token');
         socket.emit('chatMessage', input); // Emit the new message to the server
 
-        axios.post(`${mainUrl}chat`, { message: input }, {  // Send only the new message to the backend
+        axios.post(`${mainUrl}chat`, { message: input, userType: 'admin' }, {  // Send only the new message to the backend
             headers: {
                 Authorization: `Bearer ${token}`,
             },

@@ -8,78 +8,99 @@ import axios from 'axios';
 const socket = io(mainUrl);
 
 function Chat() {
-    const [messages, setMessages] = useState([]);
-    const [input, setInput] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
 
-    console.log(messages);
+  useEffect(() => {
+    socket.on('chatMessage', (msg) => {
+      setMessages((prev) => {
+        // Check if the message already exists to avoid duplication
+        const isMessageExist = prev.some((message) => message.timestamp === msg.timestamp && message.message === msg.message);
+        if (!isMessageExist) {
+          return [...prev, msg];
+        }
+        return prev;
+      });
+    });
 
-
-    useEffect(() => {
-
-        socket.on('chatMessage', async (msg) => {
-            setMessages((prev) => [...prev, msg]);
-        });
-
-        return () => {
-            socket.off('chatMessage');
-        };
-    }, []);
-
-
-    useEffect(() => {
-        socket.on('loadMessages', (msgs) => {
-            setMessages(msgs);
-        });
-
-        return () => {
-            socket.off('loadMessages');
-        };
-    }, []);
-
-    const sendMessage = () => {
-        const token = localStorage.getItem('staff-token');
-        socket.emit('chatMessage', input); // Emit the new message to the server
-
-        axios.post(`${mainUrl}chat`, { message: input, userType: 'staff' }, {  // Send only the new message to the backend
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-            .then((response) => {
-                console.log(response);
-
-                setInput(''); // Clear the input after the message is sent
-            })
-            .catch((error) => {
-                console.log('Error sending message:', error);
-            });
+    return () => {
+      socket.off('chatMessage');
     };
+  }, []);
 
+  useEffect(() => {
+    socket.on('loadMessages', (msgs) => {
+      setMessages(msgs);
+    });
 
-    return (
-        <>
-            <Navbar />
-            <Layout>
-                <div>
-                    <div>
-                        {messages.map((msg, index) => (
-                            <div key={index}>
-                                {msg.message}
-                                <br />
-                                <small>{new Date(msg.timestamp).toLocaleString()}</small>
-                            </div>
-                        ))}
-                    </div>
-                    <input
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        placeholder="Type a message"
-                    />
-                    <button onClick={sendMessage}>Send</button>
-                </div>
-            </Layout>
-        </>
-    );
+    return () => {
+      socket.off('loadMessages');
+    };
+  }, []);
+
+//   useEffect(() => {
+//     const getChat = async () => {
+//       try {
+//         const response = await axios.get(`${mainUrl}each-chat/${id}`);
+//         setMessages(response.data.data);
+//       } catch (error) {
+//         console.log('Error Get message:', error);
+//       }
+//     };
+//     getChat();
+//   }, [id]);
+
+const sendMessage = () => {
+    const token = localStorage.getItem('token');
+    const newMessage = { message: input, userType: 'staff', timestamp: new Date().toISOString() };
+
+    // Optimistically update the messages state
+    setMessages((prev) => [...prev, newMessage]);
+
+    // Emit the message to the server
+    socket.emit('chatMessage', newMessage);
+
+    // Send the message to the server via axios
+    axios.post(`${mainUrl}chat`, { message: input, userType: 'staff' }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        setInput(''); // Clear the input after the message is sent
+      })
+      .catch((error) => {
+        console.log('Error sending message:', error);
+      });
+  };
+
+  // Sort messages by timestamp
+  const sortedMessages = messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+  return (
+    <>
+      <Navbar />
+      <Layout>
+        <div>
+          <div>
+            {sortedMessages.map((msg, index) => (
+              <div key={index} className={msg.userType === 'staff' ? 'text-right' : 'text-left'}>
+                <div>{msg.message}</div>
+                <small>{new Date(msg.timestamp).toLocaleString()}</small>
+              </div>
+            ))}
+          </div>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type a message"
+          />
+          <button onClick={sendMessage}>Send</button>
+        </div>
+      </Layout>
+    </>
+  );
 }
 
 export default Chat;

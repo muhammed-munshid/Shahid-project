@@ -45,12 +45,16 @@ function Staffs() {
     setIsEdit(false);
   };
 
+  const handleCancel = () => {
+    setIsEdit(false);
+  };
+
   return (
     <div>
       {isChat ? (
         <AdminChat id={chatId} />
       ) : isEdit ? (
-        <EditStaff id={editId} onEditComplete={handleEditCompletion} />
+        <EditStaff id={editId} onEditComplete={handleEditCompletion} cancelPath={handleCancel} />
       ) : (
         <div>
           <Navbar />

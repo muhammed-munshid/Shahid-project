@@ -6,7 +6,7 @@ import { mainUrl } from '../../../API/Api';
 import toast from 'react-hot-toast';
 
 // eslint-disable-next-line react/prop-types
-function EditStaff({ id, onEditComplete }) {
+function EditStaff({ id, onEditComplete, cancelPath }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
@@ -48,6 +48,10 @@ function EditStaff({ id, onEditComplete }) {
         toast.error('Something went wrong');
       });
   };
+
+  const handleCancel = () => {
+    cancelPath()
+  }
 
   return (
     <div>
@@ -113,12 +117,23 @@ function EditStaff({ id, onEditComplete }) {
               </div>
 
               <div className="mt-6 flex justify-center">
+                <div className='mx-4'>
+                <button
+                  type="button"
+                  onClick={handleCancel}
+                  className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 transition duration-200"
+                >
+                  Cancel
+                </button>
+                </div>
+                <div className='mx-4'>
                 <button
                   type="submit"
                   className="bg-indigo-500 text-white px-6 py-2 rounded-md hover:bg-indigo-600 transition duration-200"
                 >
                   Update Staff
                 </button>
+                </div>
               </div>
             </form>
           </div>

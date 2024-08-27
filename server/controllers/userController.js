@@ -144,9 +144,9 @@ export const getChat = async (req, res) => {
 
 
 export const chats = async (req, res) => {
+    console.log('req: ', req.body);
     try {
         const { message, userType } = req.body;  // Expect a single message in the request body
-        console.log('req: ', req.body);
 
         const userId = req.user.id;  // Get the user ID from the decoded token
         console.log('userId: ', userId);

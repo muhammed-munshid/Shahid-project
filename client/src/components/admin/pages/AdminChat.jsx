@@ -7,14 +7,20 @@ import axios from 'axios';
 
 const socket = io(mainUrl);
 
-// eslint-disable-next-line react/prop-types
-function AdminChat({ id }) {
+function AdminChat() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
   useEffect(() => {
-    socket.on('chatMessage', async (msg) => {
-      setMessages((prev) => [...prev, msg]);
+    socket.on('chatMessage', (msg) => {
+      setMessages((prev) => {
+        // Check if the message already exists to avoid duplication
+        const isMessageExist = prev.some((message) => message.timestamp === msg.timestamp && message.message === msg.message);
+        if (!isMessageExist) {
+          return [...prev, msg];
+        }
+        return prev;
+      });
     });
 
     return () => {
@@ -32,23 +38,29 @@ function AdminChat({ id }) {
     };
   }, []);
 
-  useEffect(() => {
-    const getChat = async () => {
-      try {
-        const response = await axios.get(`${mainUrl}each-chat/${id}`);
-        setMessages(response.data.data);
-      } catch (error) {
-        console.log('Error Get message:', error);
-      }
-    };
-    getChat();
-  }, [id]);
+//   useEffect(() => {
+//     const getChat = async () => {
+//       try {
+//         const response = await axios.get(`${mainUrl}each-chat/${id}`);
+//         setMessages(response.data.data);
+//       } catch (error) {
+//         console.log('Error Get message:', error);
+//       }
+//     };
+//     getChat();
+//   }, [id]);
 
-  const sendMessage = () => {
+const sendMessage = () => {
     const token = localStorage.getItem('token');
-    
-    socket.emit('chatMessage', input); // Emit the new message to the server
+    const newMessage = { message: input, userType: 'admin', timestamp: new Date().toISOString() };
 
+    // Optimistically update the messages state
+    setMessages((prev) => [...prev, newMessage]);
+
+    // Emit the message to the server
+    socket.emit('chatMessage', newMessage);
+
+    // Send the message to the server via axios
     axios.post(`${mainUrl}chat`, { message: input, userType: 'admin' }, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -56,7 +68,6 @@ function AdminChat({ id }) {
     })
       .then((response) => {
         console.log(response);
-
         setInput(''); // Clear the input after the message is sent
       })
       .catch((error) => {

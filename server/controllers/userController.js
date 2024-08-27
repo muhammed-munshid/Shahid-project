@@ -52,6 +52,97 @@ export const adminSignUp = async (req, res) => {
     }
 }
 
+export const staffList = async (req, res) => {
+    try {
+        const response = await staffModel.find()
+        res.status(200).send({ success: true, data: response })
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: true })
+    }
+}
+
+export const staffbyId = async (req, res) => {
+    try {
+        const id = req.params.id
+        const response = await staffModel.findById(id)
+        res.status(200).send({ success: true, data: response })
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: true })
+    }
+}
+
+export const addStaff = async (req, res) => {
+    try {
+        const { name, email, mobile, password } = req.body
+        const user = await userModel.findOne({ email: email })
+        if (user) {
+            res.status(200).send({ exist: true, message: 'You are already added staff' })
+        } else {
+            const salt = await bcrypt.genSalt(10)
+            const hashedPassword = await bcrypt.hash(password, salt)
+            const newStaff = new staffModel({
+                name, email, mobile, password: hashedPassword
+            })
+            await newStaff.save()
+            res.status(200).send({ success: true, message: 'New Staff Added' })
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: true })
+    }
+}
+
+export const editStaff = async (req, res) => {
+    try {
+        const id = req.params.id
+        const { name, email, mobile, password } = req.body
+        function isBcryptHash(password) {
+            // Bcrypt hashes usually start with $2a$, $2b$, or $2y$ and are 60 characters long
+            const bcryptHashPattern = /^\$2[aby]\$.{56}$/;
+
+            return bcryptHashPattern.test(password);
+        }
+        const isBycrypt = isBcryptHash(password)
+        console.log(isBycrypt);
+
+        if (isBycrypt === true) {
+            await staffModel.findByIdAndUpdate(id, {
+                $set: {
+                    name, email, mobile, password
+                }
+            })
+        } else {
+            const salt = await bcrypt.genSalt(10)
+            const hashedPassword = await bcrypt.hash(password, salt)
+            await staffModel.findByIdAndUpdate(id, {
+                $set: {
+                    name, email, mobile, password: hashedPassword
+                }
+            })
+        }
+        const updatedStaff = await staffModel.findById(id)
+        res.status(200).send({ success: true, message: 'Staff Updated', data: updatedStaff })
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: true })
+    }
+}
+
+export const getChat = async (req, res) => {
+    try {
+        const id = req.params.id
+        const response = await messageModel.find({ user: id })
+
+        res.status(200).send({ success: true, data: response })
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: true })
+    }
+}
+
+
 export const chats = async (req, res) => {
     try {
         const { message, userType } = req.body;  // Expect a single message in the request body
@@ -76,12 +167,12 @@ export const chats = async (req, res) => {
 }
 
 
-
-
 export const staffLogin = async (req, res) => {
     try {
         const { email, password } = req.body
+
         const user = await staffModel.findOne({ email: email })
+        console.log('user: ', user.password);
         if (user) {
             const isMatchPswrd = await bcrypt.compare(password, user.password)
 

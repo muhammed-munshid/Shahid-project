@@ -19,9 +19,8 @@ function AdminLogin() {
             
             if (response.data.success) {
                 toast.success(response.data.message);
-                navigate('/users');
+                navigate('/staffs');
                 localStorage.setItem('token', response.data.data);
-                // localStorage.setItem('userId', response.data.data.user._id);
             } else if(response.data.notExist) {
                 toast.error(response.data.message);
             } else {

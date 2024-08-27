@@ -7,79 +7,89 @@ import axios from 'axios';
 
 const socket = io(mainUrl);
 
-function AdminChat() {
-    const [messages, setMessages] = useState([]);
-    const [input, setInput] = useState('');
+// eslint-disable-next-line react/prop-types
+function AdminChat({ id }) {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
 
-    console.log(messages);
+  useEffect(() => {
+    socket.on('chatMessage', async (msg) => {
+      setMessages((prev) => [...prev, msg]);
+    });
 
-
-    useEffect(() => {
-
-        socket.on('chatMessage', async (msg) => {
-            setMessages((prev) => [...prev, msg]);
-        });
-
-        return () => {
-            socket.off('chatMessage');
-        };
-    }, []);
-
-
-    useEffect(() => {
-        socket.on('loadMessages', (msgs) => {
-            setMessages(msgs);
-        });
-
-        return () => {
-            socket.off('loadMessages');
-        };
-    }, []);
-
-    const sendMessage = () => {
-        const token = localStorage.getItem('token');
-        socket.emit('chatMessage', input); // Emit the new message to the server
-
-        axios.post(`${mainUrl}chat`, { message: input, userType: 'admin' }, {  // Send only the new message to the backend
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-            .then((response) => {
-                console.log(response);
-
-                setInput(''); // Clear the input after the message is sent
-            })
-            .catch((error) => {
-                console.log('Error sending message:', error);
-            });
+    return () => {
+      socket.off('chatMessage');
     };
+  }, []);
 
+  useEffect(() => {
+    socket.on('loadMessages', (msgs) => {
+      setMessages(msgs);
+    });
 
-    return (
-        <>
-            <Navbar />
-            <Layout>
-                <div>
-                    <div>
-                        {messages.map((msg, index) => (
-                            <div key={index}>
-                                {msg.message}
-                                <br />
-                                <small>{new Date(msg.timestamp).toLocaleString()}</small>
-                            </div>
-                        ))}
-                    </div>
-                    <input
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        placeholder="Type a message"
-                    />
-                    <button onClick={sendMessage}>Send</button>
-                </div>
-            </Layout>
-        </>
-    );
+    return () => {
+      socket.off('loadMessages');
+    };
+  }, []);
+
+  useEffect(() => {
+    const getChat = async () => {
+      try {
+        const response = await axios.get(`${mainUrl}each-chat/${id}`);
+        setMessages(response.data.data);
+      } catch (error) {
+        console.log('Error Get message:', error);
+      }
+    };
+    getChat();
+  }, [id]);
+
+  const sendMessage = () => {
+    const token = localStorage.getItem('token');
+    
+    socket.emit('chatMessage', input); // Emit the new message to the server
+
+    axios.post(`${mainUrl}chat`, { message: input, userType: 'admin' }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        setInput(''); // Clear the input after the message is sent
+      })
+      .catch((error) => {
+        console.log('Error sending message:', error);
+      });
+  };
+
+  // Sort messages by timestamp
+  const sortedMessages = messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+  return (
+    <>
+      <Navbar />
+      <Layout>
+        <div>
+          <div>
+            {sortedMessages.map((msg, index) => (
+              <div key={index} className={msg.userType === 'admin' ? 'text-right' : 'text-left'}>
+                <div>{msg.message}</div>
+                <small>{new Date(msg.timestamp).toLocaleString()}</small>
+              </div>
+            ))}
+          </div>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type a message"
+          />
+          <button onClick={sendMessage}>Send</button>
+        </div>
+      </Layout>
+    </>
+  );
 }
 
 export default AdminChat;

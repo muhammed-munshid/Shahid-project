@@ -39,7 +39,7 @@ function Layout({ children }) {
             </div>
             <ul className="space-y-2 p-4">
               <li>
-                <a href="/users" className="block py-2 px-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Staffs</a>
+                <a href="/staffs" className="block py-2 px-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Staffs</a>
               </li>
               <li>
                 <a href="/chat" className="block py-2 px-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Chat</a>

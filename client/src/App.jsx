@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import Users from './components/admin/pages/Users';
-import AddUser from './components/admin/pages/AddUser';
 import MainPage from './components/MainPage';
 import Login from './components/staffs/pages/Login';
 import SignUp from './components/staffs/pages/SignUp';
@@ -11,6 +9,8 @@ import Diary from './components/staffs/pages/Diary';
 import AddDiary from './components/staffs/pages/AddDiary';
 import AdminChat from './components/admin/pages/AdminChat';
 import Chat from './components/staffs/pages/Chat';
+import AddStaff from './components/admin/pages/AddStaff';
+import Staffs from './components/admin/pages/Staffs';
 
 function App() {
   return (
@@ -67,15 +67,15 @@ function App() {
             )}
           />
           <Route
-            path="/add-user"
+            path="/add-staff"
             element={
-              <AddUser />
+              <AddStaff />
             }
           />
           <Route
-            path="/users"
+            path="/staffs"
             element={
-              <Users />
+              <Staffs />
             }
           />
           <Route

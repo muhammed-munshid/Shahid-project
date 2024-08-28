@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import userRoute from './routes/userRoute.js';
 import connection from './config/dbConfig.js';
-import messageModel from './models/messageModel.js';
 
 dotenv.config();
 connection();
@@ -25,7 +24,13 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
+app.use((req, res, next) => {
+  req.io = io; // Attach Socket.IO to request object
+  next();
+});
+
 app.use('/', userRoute);
+
 
 // Sample route
 app.get('/', (req, res) => {
@@ -33,26 +38,16 @@ app.get('/', (req, res) => {
 });
 
 // Combined Socket.io connection
-io.on('connection', async (socket) => {
-    console.log('A user connected: ' + socket.id);
+io.on('connection', (socket) => {
+  socket.on('joinRoom', (userId) => {
+    socket.join(userId);
+  });
 
-    // Load and send previous messages to the newly connected client
-    const messages = await messageModel.find().sort('timestamp');
-    socket.emit('loadMessages', messages);
-
-    // Listening for new messages from clients
-    socket.on('chatMessage', async (msg) => {
-        // const message = new messageModel({ user: socket.id, message: msg });
-        // await message.save();
-
-        // Emit to all clients including the sender
-        io.emit('chatMessage', msg);
-    });
-
-    socket.on('disconnect', () => {
-        console.log('User disconnected: ' + socket.id);
-    });
+  socket.on('leaveRoom', (userId) => {
+    socket.leave(userId);
+  });
 });
+
 
 // Start the server
 const PORT = process.env.PORT

@@ -25,6 +25,10 @@ const staffSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    isBlocked: {
+        type: Boolean,
+        default: false
+    },
 });
 
 const staffModel = mongoose.model('staffs', staffSchema);

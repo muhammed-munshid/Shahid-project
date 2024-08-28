@@ -4,8 +4,9 @@ import Layout from '../Layout';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { mainUrl } from '../../../API/Api';
-import AdminChat from './AdminChat';
 import EditStaff from './EditStaff';
+import toast from 'react-hot-toast';
+import AdminDmChat from './AdminDmChat';
 
 function Staffs() {
   const [staffList, setStaffList] = useState([]);
@@ -36,9 +37,32 @@ function Staffs() {
     setEditId(id);
   };
 
+  const handleToggleBlock = async (id) => {
+    try {
+      const response = await axios.post(`${mainUrl}block-staff/${id}`);
+      const data = response.data.data
+      if (response.data.success) {
+        toast.success(response.data.message)
+        setStaffList(prevStaffs =>
+          prevStaffs.map(staff =>
+            staff._id === id ? { ...staff, isBlocked: data.isBlocked } : staff
+          )
+        );
+      } else {
+        toast.error(response.data.message)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChatCompletion = () => {
+    setIsChat(false)
+  }
+
   const handleEditCompletion = (updatedStaff) => {
     console.log('up: ', updatedStaff);
-    
+
     setStaffList((prevList) =>
       prevList.map((staff) => (staff._id === updatedStaff._id ? updatedStaff : staff))
     );
@@ -52,7 +76,7 @@ function Staffs() {
   return (
     <div>
       {isChat ? (
-        <AdminChat id={chatId} />
+        <AdminDmChat id={chatId} backtoList={handleChatCompletion} />
       ) : isEdit ? (
         <EditStaff id={editId} onEditComplete={handleEditCompletion} cancelPath={handleCancel} />
       ) : (
@@ -136,9 +160,20 @@ function Staffs() {
                                 </button>
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">
-                                <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-200">
-                                  Delete
-                                </button>
+                                {data.isBlocked ? (
+                                  <button
+                                    onClick={() => handleToggleBlock(data._id)}
+                                    className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition duration-200">
+                                    Unblock
+                                  </button>
+                                ) : (
+                                  <button
+                                    onClick={() => handleToggleBlock(data._id)}
+                                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-200">
+                                    Block
+                                  </button>
+                                )}
+
                               </td>
                             </tr>
                           ))

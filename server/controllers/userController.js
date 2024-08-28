@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
-import userModel from "../models/userModel.js"
+import adminModel from "../models/adminModel.js"
 import messageModel from '../models/messageModel.js';
 import staffModel from '../models/staffModel.js';
 import diaryModel from '../models/diaryModel.js';
@@ -8,7 +8,7 @@ import diaryModel from '../models/diaryModel.js';
 export const adminLogin = async (req, res) => {
     try {
         const { email, password } = req.body
-        const user = await userModel.findOne({ email: email })
+        const user = await adminModel.findOne({ email: email })
         if (user) {
             const isMatchPswrd = await bcrypt.compare(password, user.password)
 
@@ -31,13 +31,13 @@ export const adminLogin = async (req, res) => {
 export const adminSignUp = async (req, res) => {
     try {
         const { name, email, mobile, password } = req.body
-        const user = await userModel.findOne({ email: email })
+        const user = await adminModel.findOne({ email: email })
         if (user) {
             res.status(200).send({ exist: true, message: 'You are already signed' })
         } else {
             const salt = await bcrypt.genSalt(10)
             const hashedPassword = await bcrypt.hash(password, salt)
-            const newUser = new userModel({
+            const newUser = new adminModel({
                 name,
                 email,
                 mobile,
@@ -76,7 +76,7 @@ export const staffbyId = async (req, res) => {
 export const addStaff = async (req, res) => {
     try {
         const { name, email, mobile, password } = req.body
-        const user = await userModel.findOne({ email: email })
+        const user = await adminModel.findOne({ email: email })
         if (user) {
             res.status(200).send({ exist: true, message: 'You are already added staff' })
         } else {
@@ -130,42 +130,68 @@ export const editStaff = async (req, res) => {
     }
 }
 
-export const getChat = async (req, res) => {
+export const blockStaff = async (req, res) => {
     try {
         const id = req.params.id
-        const response = await messageModel.find({ user: id })
-
-        res.status(200).send({ success: true, data: response })
+        const staff = await staffModel.findById(id)
+        staff.isBlocked = !staff.isBlocked;
+        await staff.save();
+        const updatedStaff = await staffModel.findById(id)
+        res.status(200).send({ success: true, message: updatedStaff.isBlocked ? 'User blocked successfully' : 'User unblocked successfully', data: updatedStaff })
     } catch (err) {
         console.log(err);
-        res.status(500).send({ error: true })
+        res.status(500).send({ error: true, message: 'Error toggling block status' })
     }
 }
 
-
-export const chats = async (req, res) => {
-    console.log('req: ', req.body);
+export const getChat = async (req, res) => {
     try {
-        const { message, userType } = req.body;  // Expect a single message in the request body
+        const { id } = req.params;
+        const userId = req.user.id;
 
-        const userId = req.user.id;  // Get the user ID from the decoded token
-        console.log('userId: ', userId);
+        const messages = await messageModel.find({
+            $or: [
+                { senderId: userId, recieverId: id },
+                { senderId: id, recieverId: userId }
+            ]
+        }).sort({ timestamp: 1 });
+
+        res.status(200).send({ success: true, data: messages });
+    } catch (error) {
+        console.error('Error fetching messages:', error);
+        res.status(500).send({ error: true });
+    }
+};
+
+
+
+export const sendChat = async (req, res) => {
+    try {
+        const { message, userType, recieverId } = req.body;
+        const senderId = req.user.id;  // From the JWT token
 
         // Create and save the new message
         const newMessage = new messageModel({
-            userType,
-            user: userId,
-            message: message,  // This is a string, not an array
+            senderId,
+            recieverId,
+            message,
+            userType
         });
+
         await newMessage.save();
+
+        // Emit the message to the recipient via Socket.IO
+        req.io.to(recieverId.toString()).emit('chatMessage', newMessage);
+
+        // Optionally, emit the message to the sender too
+        req.io.to(senderId.toString()).emit('chatMessage', newMessage);
 
         res.status(201).json(newMessage);
     } catch (error) {
         console.error('Error saving message:', error);
         res.status(500).json({ message: 'Server error' });
     }
-}
-
+};
 
 export const staffLogin = async (req, res) => {
     try {
@@ -175,14 +201,17 @@ export const staffLogin = async (req, res) => {
         console.log('user: ', user.password);
         if (user) {
             const isMatchPswrd = await bcrypt.compare(password, user.password)
-
-            if (!isMatchPswrd) {
-                res.status(200).send({ message: "Incorrect Password", noUser: false })
+            if (user.isBlocked) {
+                res.status(200).send({ message: 'Admin blocked your account', isBlocked: true })
             } else {
-                const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-                    expiresIn: '1d'
-                }) //the jwt.sign() will generate the token,the expiresIn is for destory the session
-                res.status(200).send({ message: "Login Successfull", success: true, data: token })
+                if (!isMatchPswrd) {
+                    res.status(200).send({ message: "Incorrect Password", noUser: false })
+                } else {
+                    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+                        expiresIn: '1d'
+                    }) //the jwt.sign() will generate the token,the expiresIn is for destory the session
+                    res.status(200).send({ message: "Login Successfull", success: true, data: token })
+                }
             }
         } else {
             res.status(200).send({ message: "User Not Exist", notExist: true })
@@ -210,6 +239,16 @@ export const staffSignUp = async (req, res) => {
             await newUser.save()
             res.status(200).send({ success: true, message: 'Your signUp verificatoin successfully' })
         }
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: true })
+    }
+}
+
+export const adminList = async (req, res) => {
+    try {
+        const response = await adminModel.find()
+        res.status(200).send({ success: true, data: response })
     } catch (err) {
         console.log(err);
         res.status(500).send({ error: true })

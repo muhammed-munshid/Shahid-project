@@ -16,13 +16,14 @@ function Login() {
         try {
             const response = await axios.post(`${mainUrl}staff-login`, adminData);
             console.log(response.data);
-            
             if (response.data.success) {
                 toast.success(response.data.message);
                 navigate('/diary');
                 localStorage.setItem('staff-token', response.data.data);
                 // localStorage.setItem('userId', response.data.data.user._id);
             } else if(response.data.notExist) {
+                toast.error(response.data.message);
+            } else if(response.data.isBlocked) {
                 toast.error(response.data.message);
             } else {
                 toast.error(response.data.message);

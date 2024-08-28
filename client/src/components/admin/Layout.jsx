@@ -12,9 +12,10 @@ function Layout({ children }) {
   };
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem('token');
     navigate('/login')
   }
+
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -41,14 +42,14 @@ function Layout({ children }) {
               <li>
                 <a href="/staffs" className="block py-2 px-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Staffs</a>
               </li>
+              {/* <li>
+                <a href="/chat" className="block py-2 px-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Group Chat</a>
+              </li> */}
               <li>
-                <a href="/chat" className="block py-2 px-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Chat</a>
+                <button type='button' onClick={handleLogout} className="block w-full py-2 px-4 text-left text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Logout</button>
               </li>
               {/* Add more links here */}
             </ul>
-          </div>
-          <div className="p-4">
-            <button type='button' onClick={handleLogout} className="block w-full py-2 px-4 text-left text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">Logout</button>
           </div>
         </div>
       </div>

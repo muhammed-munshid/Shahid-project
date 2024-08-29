@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Navbar from '../Navbar';
-import Layout from '../Layout';
+// import Layout from '../Layout';
 import axios from 'axios';
 import { mainUrl } from '../../../API/Api';
 import { useNavigate } from 'react-router-dom';
@@ -39,7 +39,7 @@ function AddStaff() {
   return (
     <div>
       <Navbar />
-      <Layout>
+      {/* <Layout> */}
         <div className="flex justify-center items-center h-full px-4">
           <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-8">
             <h2 className="text-2xl font-bold mb-6 text-center">Add Staff</h2>
@@ -108,7 +108,7 @@ function AddStaff() {
             </form>
           </div>
         </div>
-      </Layout>
+      {/* </Layout> */}
     </div>
   );
 }

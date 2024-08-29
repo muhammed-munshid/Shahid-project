@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../Navbar';
-import Layout from '../Layout';
+// import Layout from '../Layout';
 import axios from 'axios';
 import { mainUrl } from '../../../API/Api';
 import toast from 'react-hot-toast';
@@ -56,7 +56,7 @@ function EditStaff({ id, onEditComplete, cancelPath }) {
   return (
     <div>
       <Navbar />
-      <Layout>
+      {/* <Layout> */}
         <div className="flex justify-center items-center h-full px-4">
           <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-8">
             <h2 className="text-2xl font-bold mb-6 text-center">Edit Staff</h2>
@@ -138,7 +138,7 @@ function EditStaff({ id, onEditComplete, cancelPath }) {
             </form>
           </div>
         </div>
-      </Layout>
+      {/* </Layout> */}
     </div>
   );
 }

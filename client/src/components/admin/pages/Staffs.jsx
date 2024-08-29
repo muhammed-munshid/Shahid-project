@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar';
-import Layout from '../Layout';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { mainUrl } from '../../../API/Api';
@@ -82,8 +81,7 @@ function Staffs() {
       ) : (
         <div>
           <Navbar />
-          <Layout>
-            <div className="mt-[4rem] pe-4">
+            <div className="m-[4rem] pe-4">
               <div className="flex justify-between items-center mb-4">
                 <h1 className="text-xl font-bold">Staff List</h1>
                 <Link
@@ -190,7 +188,6 @@ function Staffs() {
                 </div>
               </div>
             </div>
-          </Layout>
         </div>
       )}
     </div>

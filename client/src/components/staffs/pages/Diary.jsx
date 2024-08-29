@@ -51,6 +51,12 @@ function Diary() {
         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
           ഇന്ന് കിട്ടിയ മുട്ടയുടെ എണ്ണം(താറാവ്)
         </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Edit
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Delete
+        </th>
       </tr>
     </thead>
   );
@@ -90,6 +96,22 @@ function Diary() {
             <td className="px-6 py-4 whitespace-nowrap">
               <div className="text-sm text-gray-900">{data.note8}</div>
             </td>
+            {/* <td className="px-6 py-4 whitespace-nowrap">
+              <button
+                onClick={() => handleEdit(data._id)}
+                className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition duration-200"
+              >
+                Edit
+              </button>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <button
+                onClick={() => handleDelete(data._id)}
+                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-200"
+              >
+                Delete
+              </button>
+            </td> */}
           </tr>
         );
       })}

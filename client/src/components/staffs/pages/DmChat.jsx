@@ -113,7 +113,7 @@ function StaffDmChat({ id, backtoList }) {
 
             {/* Centered Username */}
             <div className="flex-1 text-center">
-              <span className="text-lg font-bold">Muhammed Munshid</span>
+              <span className="text-lg font-bold">Admin</span>
             </div>
           </div>
           <div className="flex-grow overflow-y-auto p-4">

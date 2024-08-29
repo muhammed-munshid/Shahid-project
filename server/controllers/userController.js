@@ -265,6 +265,17 @@ export const diaryList = async (req, res) => {
     }
 }
 
+export const diarybyId = async (req, res) => {
+    try {
+        const id = req.params.id
+        const response = await diaryModel.findById(id)
+        res.status(200).send({ success: true, data: response })
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: true })
+    }
+}
+
 export const addDiary = async (req, res) => {
     try {
         const { note1, note2, note3, note4, note5, note6, note7, note8, note9, note10, note11, note12, note13, note14, note15, note16,
@@ -278,6 +289,39 @@ export const addDiary = async (req, res) => {
         })
         await newDiary.save()
         res.status(200).send({ success: true, message: 'Day Diary added' })
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: true })
+    }
+}
+
+export const editDiary = async (req, res) => {
+    try {
+        const id = req.params.id
+        const { note1, note2, note3, note4, note5, note6, note7, note8, note9, note10, note11, note12, note13, note14, note15, note16,
+            note17, note18, note19, note20, note21, note22, note23, note24, note25, note26, note27, note28, note29, note30,
+            note31, note32, note33, note34, note35, note36, note37 } = req.body
+
+        await diaryModel.findByIdAndUpdate(id, {
+            $set: {
+                note1, note2, note3, note4, note5, note6, note7, note8, note9, note10, note11, note12, note13, note14, note15, note16,
+                note17, note18, note19, note20, note21, note22, note23, note24, note25, note26, note27, note28, note29, note30,
+                note31, note32, note33, note34, note35, note36, note37
+            }
+        })
+        const updatedDiary = await diaryModel.findById(id)
+        res.status(200).send({ success: true, message: 'Diary Updated', data: updatedDiary })
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: true })
+    }
+}
+
+export const deleteDiary = async (req, res) => {
+    try {
+        const id = req.params.id
+        await diaryModel.deleteOne({ _id: id })
+        res.status(200).send({ success: true, message: 'Diary deleted' })
     } catch (err) {
         console.log(err);
         res.status(500).send({ error: true })

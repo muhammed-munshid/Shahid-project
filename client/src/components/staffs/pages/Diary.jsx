@@ -3,10 +3,15 @@ import Navbar from '../Navbar';
 import Layout from '../Layout';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { mainUrl } from '../../../API/Api';
+import EditDiary from './EditDiary';
+import toast from 'react-hot-toast';
 
 function Diary() {
   const [diaryList, setDiaryList] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editId, setEditId] = useState('');
 
   useEffect(() => {
     const getDiary = async () => {
@@ -19,6 +24,65 @@ function Diary() {
     };
     getDiary();
   }, []);
+
+  const handleEdit = (id) => {
+    setIsEdit(true);
+    setEditId(id);
+  };
+
+  
+  const handleEditCompletion = (updatedStaff) => {
+
+    setDiaryList((prevList) =>
+      prevList.map((staff) => (staff._id === updatedStaff._id ? updatedStaff : staff))
+    );
+    setIsEdit(false);
+  };
+
+  const handleCancel = () => {
+    setIsEdit(false);
+  };
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes,Delete it!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          axios.delete(`${mainUrl}delete-diary/${id}`)
+          .then((response) => {
+            if (response.data.success) {
+              Swal.fire(
+                'Diary deleted!',
+                'Your diary has been removed.',
+                'success',
+              ).then(() => {
+                window.location.reload();
+              });
+            } else {
+              toast.error('Something error');
+            }
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+    // try {
+    //   const response = axios.delete(`${mainUrl}delete-diary/${id}`);
+    //   if (response.data.success) {
+    //     toast.success(response.data.message)
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
 
   // Table headers (separate from the map function)
   const tableHeaders = (
@@ -96,7 +160,7 @@ function Diary() {
             <td className="px-6 py-4 whitespace-nowrap">
               <div className="text-sm text-gray-900">{data.note8}</div>
             </td>
-            {/* <td className="px-6 py-4 whitespace-nowrap">
+            <td className="px-6 py-4 whitespace-nowrap">
               <button
                 onClick={() => handleEdit(data._id)}
                 className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition duration-200"
@@ -111,7 +175,7 @@ function Diary() {
               >
                 Delete
               </button>
-            </td> */}
+            </td>
           </tr>
         );
       })}
@@ -120,31 +184,37 @@ function Diary() {
 
   return (
     <div>
-      <Navbar />
-      <Layout>
-        <div className="mt-[4rem] pe-4">
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-xl font-bold">Day Diary</h1>
-            <Link to='/add-diary' className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
-              Add Day Diary
-            </Link>
-          </div>
+      {isEdit ? (
+        <EditDiary id={editId} onEditComplete={handleEditCompletion} cancelPath={handleCancel} />
+      ) : (
+        <div>
+          <Navbar />
+          <Layout>
+            <div className="mt-[4rem] pe-4">
+              <div className="flex justify-between items-center mb-4">
+                <h1 className="text-xl font-bold">Day Diary</h1>
+                <Link to='/add-diary' className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+                  Add Day Diary
+                </Link>
+              </div>
 
-          <div className="overflow-x-auto">
-            <div className="inline-block min-w-full">
-              <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                  {/* Render headers */}
-                  {tableHeaders}
+              <div className="overflow-x-auto">
+                <div className="inline-block min-w-full">
+                  <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      {/* Render headers */}
+                      {tableHeaders}
 
-                  {/* Render body */}
-                  {tableBody}
-                </table>
+                      {/* Render body */}
+                      {tableBody}
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </Layout>
         </div>
-      </Layout>
+      )}
     </div>
   );
 }

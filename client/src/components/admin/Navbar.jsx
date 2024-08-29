@@ -15,6 +15,8 @@ function Navbar() {
     navigate('/login');  // Navigate to login page after logout
   };
 
+  const token = localStorage.getItem('token')
+
   return (
     <>
       <nav className="bg-cyan-600 p-3 flex justify-between items-center sticky top-0 h-16">
@@ -29,12 +31,16 @@ function Navbar() {
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">MGL Farm</span>
           </a>
         </div>
-        <div className="flex items-center space-x-4">
-          <button className="text-white p-2 hover:sky-red-800 px-4 py-2">
-            Admin
-          </button>
-          <button onClick={handleLogout} className="text-white bg-sky-700 px-4 py-2 rounded hover:bg-sky-800">Logout</button>
-        </div>
+        {token ? (
+          <div className="flex items-center space-x-4">
+            <button className="text-white p-2 hover:sky-red-800 px-4 py-2">
+              Admin
+            </button>
+            <button onClick={handleLogout} className="text-white bg-sky-700 px-4 py-2 rounded hover:bg-sky-800">Logout</button>
+          </div>
+        ) : (
+          <div></div>
+        )}
       </nav>
 
       {/* Sidebar with smooth transition */}

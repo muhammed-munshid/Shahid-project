@@ -1,5 +1,5 @@
 import express from 'express'
-import { addDiary, addStaff, adminList, adminLogin, adminSignUp, blockStaff, diaryList, editStaff, getChat, sendChat, staffbyId, staffList, staffLogin, staffSignUp } from '../controllers/userController.js'
+import { addDiary, addStaff, adminList, adminLogin, adminSignUp, blockStaff, deleteDiary, diarybyId, diaryList, editDiary, editStaff, getChat, sendChat, staffbyId, staffList, staffLogin, staffSignUp } from '../controllers/userController.js'
 import userAuth from '../middleware/userAuth.js'
 const router = express.Router()
 
@@ -17,10 +17,14 @@ router.post('/block-staff/:id', blockStaff)
 //Staff Route
 router.get('/get-diary', diaryList)
 router.get('/get-admin', adminList)
+router.get('/get-diary-by-id/:id', diarybyId)
 
 router.post('/staff-login', staffLogin)
 router.post('/staff-signUp', staffSignUp)
 router.post('/add-diary', addDiary)
+router.put('/edit-diary/:id', editDiary)
+
+router.delete('/delete-diary/:id', deleteDiary)
 
 
 //Both Route

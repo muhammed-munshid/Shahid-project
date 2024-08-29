@@ -60,7 +60,6 @@ function Staffs() {
   }
 
   const handleEditCompletion = (updatedStaff) => {
-    console.log('up: ', updatedStaff);
 
     setStaffList((prevList) =>
       prevList.map((staff) => (staff._id === updatedStaff._id ? updatedStaff : staff))

@@ -6,6 +6,7 @@ import { mainUrl } from '../../../API/Api';
 import EditStaff from './EditStaff';
 import toast from 'react-hot-toast';
 import AdminDmChat from './AdminDmChat';
+import Layout from '../Layout';
 
 function Staffs() {
   const [staffList, setStaffList] = useState([]);
@@ -80,6 +81,7 @@ function Staffs() {
       ) : (
         <div>
           <Navbar />
+          <Layout>
             <div className="m-[4rem] pe-4">
               <div className="flex justify-between items-center mb-4">
                 <h1 className="text-xl font-bold">Staff List</h1>
@@ -187,6 +189,7 @@ function Staffs() {
                 </div>
               </div>
             </div>
+            </Layout>
         </div>
       )}
     </div>

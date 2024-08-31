@@ -15,34 +15,34 @@ function AddDiary() {
   const [note6, setNote6] = useState(0);
   const [note7, setNote7] = useState(0);
   const [note8, setNote8] = useState(0);
-  const [note9, setNote9] = useState('');
-  const [note10, setNote10] = useState('');
+  const [note9, setNote9] = useState(0);
+  const [note10, setNote10] = useState(0);
   const [note11, setNote11] = useState('');
   const [note12, setNote12] = useState('');
   const [note13, setNote13] = useState('');
   const [note14, setNote14] = useState('');
   const [note15, setNote15] = useState('');
   const [note16, setNote16] = useState('');
-  const [note17, setNote17] = useState('');
-  const [note18, setNote18] = useState('');
-  const [note19, setNote19] = useState('');
-  const [note20, setNote20] = useState('');
-  const [note21, setNote21] = useState('');
-  const [note22, setNote22] = useState('');
-  const [note23, setNote23] = useState('');
+  const [note17, setNote17] = useState(0);
+  const [note18, setNote18] = useState(0);
+  const [note19, setNote19] = useState(new Date());
+  const [note20, setNote20] = useState(new Date());
+  const [note21, setNote21] = useState(new Date());
+  const [note22, setNote22] = useState(new Date());
+  const [note23, setNote23] = useState(new Date());
   const [note24, setNote24] = useState('');
-  const [note25, setNote25] = useState('');
+  const [note25, setNote25] = useState(new Date());
   const [note26, setNote26] = useState('');
-  const [note27, setNote27] = useState('');
+  const [note27, setNote27] = useState(0);
   const [note28, setNote28] = useState('');
   const [note29, setNote29] = useState('');
-  const [note30, setNote30] = useState('');
-  const [note31, setNote31] = useState('');
-  const [note32, setNote32] = useState('');
-  const [note33, setNote33] = useState('');
+  const [note30, setNote30] = useState(0);
+  const [note31, setNote31] = useState(0);
+  const [note32, setNote32] = useState(0);
+  const [note33, setNote33] = useState(0);
   const [note34, setNote34] = useState('');
   const [note35, setNote35] = useState('');
-  const [note36, setNote36] = useState('');
+  const [note36, setNote36] = useState(0);
   const [note37, setNote37] = useState('');
   const navigate = useNavigate();
 
@@ -54,7 +54,12 @@ function AddDiary() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`${mainUrl}add-diary`, diaryData)
+    const token = localStorage.getItem('staff-token');
+    axios.post(`${mainUrl}add-diary`, diaryData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (response.data.success) {
           toast.success(response.data.message);
@@ -63,7 +68,7 @@ function AddDiary() {
           toast.error(response.data.message);
         }
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err);
         toast.error('Something went wrong');
       })
@@ -321,7 +326,7 @@ function AddDiary() {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label className="text-sm font-medium text-gray-700">പുതിയ തീറ്റകൾ വന്ന തിയതി<br />Meat Propose Food (MPF)
+                  <label className="text-sm font-medium text-gray-700">പുതിയ തീറ്റകൾ വന്ന തിയതി<br />(Meat Propose Food (MPF))
                   </label>
                   <input
                     type="date"
@@ -488,12 +493,12 @@ function AddDiary() {
               </div>
 
 
-            {/* Submit Button */}
-            <div className="mt-6 text-center">
-              <button type='submit' className="bg-indigo-500 text-white px-6 py-2 rounded-md hover:bg-indigo-600 transition duration-200">
-                Submit
-              </button>
-            </div>
+              {/* Submit Button */}
+              <div className="mt-6 text-center">
+                <button type='submit' className="bg-indigo-500 text-white px-6 py-2 rounded-md hover:bg-indigo-600 transition duration-200">
+                  Submit
+                </button>
+              </div>
             </form>
           </div>
         </div>

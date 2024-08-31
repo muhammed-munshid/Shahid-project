@@ -1,9 +1,13 @@
 import mongoose from 'mongoose';
+const ObjectId = mongoose.Types.ObjectId;
 
 const diarySchema = new mongoose.Schema({
     date: {
         type: Date,
         default: new Date()
+    },
+    user_id: {
+        type: ObjectId,
     },
     note1: {
         type: String,

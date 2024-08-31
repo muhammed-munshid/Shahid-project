@@ -30,7 +30,7 @@ function Diary() {
     setEditId(id);
   };
 
-  
+
   const handleEditCompletion = (updatedStaff) => {
 
     setDiaryList((prevList) =>
@@ -56,19 +56,19 @@ function Diary() {
       if (result.isConfirmed) {
         try {
           axios.delete(`${mainUrl}delete-diary/${id}`)
-          .then((response) => {
-            if (response.data.success) {
-              Swal.fire(
-                'Diary deleted!',
-                'Your diary has been removed.',
-                'success',
-              ).then(() => {
-                window.location.reload();
-              });
-            } else {
-              toast.error('Something error');
-            }
-          });
+            .then((response) => {
+              if (response.data.success) {
+                Swal.fire(
+                  'Diary deleted!',
+                  'Your diary has been removed.',
+                  'success',
+                ).then(() => {
+                  window.location.reload();
+                });
+              } else {
+                toast.error('Something error');
+              }
+            });
         } catch (error) {
           console.log(error);
         }
@@ -116,6 +116,93 @@ function Diary() {
           ഇന്ന് കിട്ടിയ മുട്ടയുടെ എണ്ണം(താറാവ്)
         </th>
         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          ആകെയുള്ള (ആഴ്ചയിൽ) മുട്ടയുടെ എണ്ണം(കോഴി)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          ആകെയുള്ള (ആഴ്ചയിൽ) മുട്ടയുടെ എണ്ണം(താറാവ്)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതുതായി പൊരുന്തിയ ജീവികൾ<br />(ഉണ്ടോ?)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതുതായി പൊരുന്തിയ ജീവികൾ<br />(ഏതൊക്കെ?)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതുതായി രോഗമുള്ള ജീവികൾ<br />(ഉണ്ടോ?)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതുതായി രോഗമുള്ള ജീവികൾ<br />(ഏതൊക്കെ?)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതുതായി രോഗമുള്ള ജീവികൾ<br />(രോഗത്തിന്റെ പേര്?)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതുതായി രോഗമുള്ള ജീവികൾ<br />(മരുന്ന് തുടങ്ങിയോ?)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          നിലവിൽ  രോഗം ഉള്ള ജീവികളുടെ എണ്ണം(കോഴി)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          നിലവിൽ  രോഗം ഉള്ള ജീവികളുടെ എണ്ണം(താറാവ്)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതിയ തീറ്റകൾ വന്ന തിയതി(Child Food (CF))
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതിയ തീറ്റകൾ വന്ന തിയതി(Child & Mother Food (CMF))
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതിയ തീറ്റകൾ വന്ന തിയതി(Adult Food (AF))
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതിയ തീറ്റകൾ വന്ന തിയതി(Parents Stock Food (PSF))
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതിയ തീറ്റകൾ വന്ന തിയതി(Meat Propose Food (MPF))
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          അപ്രത്യക്ഷമായി എന്തെകിലും ഉണ്ടായോ?
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതിയ കോഴികൾ വിരിഞ്ഞ (തിയതി)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതിയ കോഴികൾ വിരിഞ്ഞ (തള്ള കോഴി ഏത്?)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          പുതിയ കോഴികൾ വിരിഞ്ഞ (കുട്ടികളുടെ എണ്ണം)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          ഇ ആഴ്ചയിലെ extra work(a)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          ഇ ആഴ്ചയിലെ extra work(b)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          A എടുത്ത മുട്ടകളുടെ എണ്ണം(കോഴി)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          A എടുത്ത മുട്ടകളുടെ എണ്ണം(താറാവ്)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          വീട്ടിലേക് എടുത്ത മുട്ടകളുടെ എണ്ണം(കോഴി)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          വീട്ടിലേക് എടുത്ത മുട്ടകളുടെ എണ്ണം(താറാവ്)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          ജീവികൾ ഏതെങ്കിലും മരണപെട്ടോ?(ബാഹ്യ അടയാളങ്ങൾ)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          ജീവികൾ ഏതെങ്കിലും വിൽക്കപ്പെട്ടോ?(ബാഹ്യ അടയാളങ്ങൾ)
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          തിങ്കളായിച്ചകളിൽ മംഗലശ്ശേരി കോയി കടയിൽ (refrigerator) ഉള്ള മുട്ടയുടെ എണ്ണം
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          ഇന്നത്തെ വീഴ്ചകൾ
+        </th>
+        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
           Edit
         </th>
         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -130,6 +217,12 @@ function Diary() {
     <tbody className="bg-slate-400 divide-y divide-gray-200 text-xs md:text-sm">
       {diaryList.map((data) => {
         const formattedDate = new Date(data.date).toLocaleDateString('en-GB'); // Formatting date to DD-MM-YYYY
+        const formattedDate2 = new Date(data.note19).toLocaleDateString('en-GB');
+        const formattedDate3 = new Date(data.note20).toLocaleDateString('en-GB');
+        const formattedDate4 = new Date(data.note21).toLocaleDateString('en-GB');
+        const formattedDate5 = new Date(data.note22).toLocaleDateString('en-GB');
+        const formattedDate6 = new Date(data.note23).toLocaleDateString('en-GB');
+        const formattedDate7 = new Date(data.note25).toLocaleDateString('en-GB');
 
         return (
           <tr className="hover:bg-slate-200 transition duration-300" key={data._id}>
@@ -159,6 +252,93 @@ function Diary() {
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
               <div className="text-sm text-gray-900">{data.note8}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note9}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note10}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note11}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note12}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note13}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note14}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note15}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note16}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note17}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note18}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{formattedDate2}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{formattedDate3}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{formattedDate4}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{formattedDate5}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{formattedDate6}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note24}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{formattedDate7}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note26}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note27}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note28}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note29}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note30}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note31}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note32}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note33}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note34}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note35}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note36}</div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              <div className="text-sm text-gray-900">{data.note37}</div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
               <button

@@ -21,7 +21,7 @@ router.get('/get-diary-by-id/:id', diarybyId)
 
 router.post('/staff-login', staffLogin)
 router.post('/staff-signUp', staffSignUp)
-router.post('/add-diary', addDiary)
+router.post('/add-diary', userAuth, addDiary)
 router.put('/edit-diary/:id', editDiary)
 
 router.delete('/delete-diary/:id', deleteDiary)
